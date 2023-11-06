@@ -18,14 +18,28 @@ let timeLeft = 60; // 60 secs time limit
 let timer;
 
 function generateQuestion() {
-    questionTitle.textContent = quizQuestions[0].question;
-    for(i=0; i<quizQuestions[0].choices.length; i++){
-        let button = document.createElement("button");
-        button.textContent = quizQuestions[0].choices[i];
-        choicesContainer.append(button)
+    if (currentQuestionIndex < quizQuestions.length) {
+        const currentQuestion = quizQuestions[currentQuestionIndex];
+        questionTitle.textContent = currentQuestion.question;
+        choicesContainer.innerHTML = "";
+
+        displayAnswerChoices(currentQuestion.choices);
+    } else {
+        endQuiz();
     }
-    
 }
+
+function displayAnswerChoices(choices){
+    for(i=0; i<choices.length; i++){
+        const choice = choices[i];
+        
+        const choiceButton = document.createElement('button');
+        choiceButton.textContent = choice;
+        choicesContainer.appendChild(choiceButton)
+    }
+
+}
+
 
 function endQuiz() {
     questionsDiv.style.display = "none"
@@ -51,17 +65,16 @@ function startTimer(){
 function startQuiz() {
     // hide the start screen to show questions instead
     startScreen.style.display = 'none';
+        
+    // display question container
+    questionsDiv.style.display = 'block';
     
     // start the timer
     startTimer()
     
-    // display question container
-    questionsDiv.style.display = 'block';
-
     // display questions
     generateQuestion()
     
-
     // display first question
 }
 
