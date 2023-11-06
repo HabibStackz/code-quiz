@@ -1,3 +1,4 @@
+// DOM Elements
 var startScreen = document.getElementById('start-screen');
 var startButton = document.getElementById('start');
 var questionsDiv = document.getElementById('questions');
@@ -9,6 +10,12 @@ var initialsInput = document.getElementById('initials');
 var submitInitialsButton = document.getElementById('submit');
 var feedback = document.getElementById("feedback");
 var timeElement = document.getElementById("time")
+
+// Quiz Elements
+let currentQuestionIndex = 0;
+let score = 0 ;
+let timeLeft = 60; // 60 secs time limit
+let timer;
 
 function generateQuestion() {
     questionTitle.textContent = quizQuestions[0].question;
@@ -23,16 +30,17 @@ function generateQuestion() {
 function endQuiz() {
     questionsDiv.style.display = "none"
     endScreen.style.display = "block"
+    finalScore.textContent = timeLeft
 }
 
 function startTimer(){
-    var count = 60;
-    var timer = setInterval(function(){
-        count--;
-        timeElement.textContent = count
+    timeLeft = 60;
+    timer = setInterval(function(){
+        timeLeft--;
+        timeElement.textContent = timeLeft
         console.log(timer);
 
-        if(count === 0) {
+        if(timeLeft === 0) {
             clearInterval(timer)
             endQuiz()
         }
