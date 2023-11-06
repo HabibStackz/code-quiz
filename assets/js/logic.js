@@ -20,8 +20,13 @@ function generateQuestion() {
     
 }
 
+function endQuiz() {
+    questionsDiv.style.display = "none"
+    endScreen.style.display = "block"
+}
+
 function startTimer(){
-    var count = 5;
+    var count = 60;
     var timer = setInterval(function(){
         count--;
         timeElement.textContent = count
@@ -29,6 +34,7 @@ function startTimer(){
 
         if(count === 0) {
             clearInterval(timer)
+            endQuiz()
         }
 
     }, 1000);
@@ -43,6 +49,8 @@ function startQuiz() {
     
     // display question container
     questionsDiv.style.display = 'block';
+
+    // display questions
     generateQuestion()
     
 
