@@ -58,7 +58,7 @@ function checkAnswer(selectedChoice){
         setTimeout(function(){
             feedback.style.display = 'none';
         }, 500)
-        
+
     } else {
         timeLeft -= 10; // deducts 10 seconds from time left
         
@@ -117,4 +117,9 @@ function startQuiz() {
     // display first question
 }
 
+submitInitialsButton.addEventListener('click', function (){
+    window.location.href = "highscores.html";
+    const initials = initialsInput.value.trim();
+
+});
 
