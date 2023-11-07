@@ -17,6 +17,8 @@ let score = 0 ;
 let timeLeft = 60; // 60 secs time limit
 let timer;
 
+startButton.addEventListener('click', startQuiz);
+
 function generateQuestion() {
     if (currentQuestionIndex < quizQuestions.length) {
         const currentQuestion = quizQuestions[currentQuestionIndex];
@@ -24,22 +26,44 @@ function generateQuestion() {
         choicesContainer.innerHTML = "";
 
         displayAnswerChoices(currentQuestion.choices);
+
     } else {
         endQuiz();
     }
 }
 
+// This function has no global variables but one parameter which is to be replaced by the array of answer choices as an argument in the parenthesis when function is called
 function displayAnswerChoices(choices){
     for(i=0; i<choices.length; i++){
         const choice = choices[i];
         
+        // create buttons for choices
         const choiceButton = document.createElement('button');
         choiceButton.textContent = choice;
-        choicesContainer.appendChild(choiceButton)
-    }
+        choicesContainer.appendChild(choiceButton);
 
+        // add event listener to check for correct and wrong answers
+        choiceButton.addEventListener('click', function(){
+            checkAnswer(i);
+        });
+    }
 }
 
+function checkAnswer(selectedChoice){
+    const currentQuestion = quizQuestions[currentQuestionIndex];
+    if(currentQuestion.correctAnswer.includes (selectedChoice)){
+        feedback.textContent = "Correct!";
+    } else {
+        timeLeft -= 10;
+        feedback.textContent = "Wrong!";
+    }
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizQuestions.length) {
+        generateQuestion(currentQuestionIndex);
+    } else {
+        endQuiz();
+    }
+}
 
 function endQuiz() {
     questionsDiv.style.display = "none"
@@ -48,15 +72,15 @@ function endQuiz() {
 }
 
 function startTimer(){
-    timeLeft = 60;
+    timeLeft;
     timer = setInterval(function(){
         timeLeft--;
-        timeElement.textContent = timeLeft
+        timeElement.textContent = timeLeft;
         console.log(timer);
 
         if(timeLeft === 0) {
-            clearInterval(timer)
-            endQuiz()
+            clearInterval(timer);
+            endQuiz();
         }
 
     }, 1000);
@@ -78,4 +102,4 @@ function startQuiz() {
     // display first question
 }
 
-startButton.addEventListener('click', startQuiz);
+
