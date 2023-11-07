@@ -13,6 +13,8 @@ This is a simple quiz application that allows users to take a quiz, see their sc
 
 ## Features
 
+![image](https://github.com/HabibStackz/code-quiz/assets/105345889/9a9ff48e-7dfd-4b63-abb9-51657a636b6d)
+
 - Start button to begin the quiz.
 - Questions with multiple-choice answers.
 - Timer to limit the duration of the quiz.
@@ -27,6 +29,7 @@ https://habibstackz.github.io/code-quiz/
 
 1. Clone this repository to your local machine.
 2. Open the `index.html` file in your web browser to start the quiz.
+3. Alternatively, click the link above to visit the deployed page and start the quiz
 
 ## Usage
 
