@@ -83,7 +83,8 @@ function endQuiz() {
     clearInterval(timer);
     questionsDiv.style.display = "none"
     endScreen.style.display = "block"
-    finalScore.textContent = timeLeft
+    score = timeLeft
+    finalScore.textContent = score
 }
 
 function startTimer(){
@@ -114,12 +115,18 @@ function startQuiz() {
     // display questions
     generateQuestion()
     
-    // display first question
 }
 
 submitInitialsButton.addEventListener('click', function (){
     window.location.href = "highscores.html";
+    
     const initials = initialsInput.value.trim();
+    if(initials !== ""){
+    // save the score and initials in local storage
+    const scores = JSON.parse(localStorage.getItem("scores")) || [];
+    scores.push({initials, score});
+    localStorage.setItem("scores", JSON.stringify(scores));
+    }
 
 });
 
