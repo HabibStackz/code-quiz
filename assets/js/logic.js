@@ -34,7 +34,7 @@ function generateQuestion() {
 
 // This function has no global variables but one parameter which is to be replaced by the array of answer choices as an argument in the parenthesis when function is called
 function displayAnswerChoices(choices){
-    for(i=0; i<choices.length; i++){
+    for(let i=0; i<choices.length; i++){
         const choice = choices[i];
         
         // create buttons for choices
@@ -52,10 +52,24 @@ function displayAnswerChoices(choices){
 function checkAnswer(selectedChoice){
     const currentQuestion = quizQuestions[currentQuestionIndex];
     if(currentQuestion.correctAnswer.includes (selectedChoice)){
+        feedback.style.display = 'block';
         feedback.textContent = "Correct!";
+        // set timer for how long feedback shows on screen
+        setTimeout(function(){
+            feedback.style.display = 'none';
+        }, 500)
+        
     } else {
-        timeLeft -= 10;
+        timeLeft -= 10; // deducts 10 seconds from time left
+        
+        // displays feedback
+        feedback.style.display = 'block';
         feedback.textContent = "Wrong!";
+
+        // set timer for how long feedback shows on screen
+        setTimeout(function(){
+            feedback.style.display = 'none';
+        }, 500)
     }
     currentQuestionIndex++;
     if (currentQuestionIndex < quizQuestions.length) {
@@ -66,6 +80,7 @@ function checkAnswer(selectedChoice){
 }
 
 function endQuiz() {
+    clearInterval(timer);
     questionsDiv.style.display = "none"
     endScreen.style.display = "block"
     finalScore.textContent = timeLeft
